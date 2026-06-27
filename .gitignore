@@ -1,0 +1,22 @@
+.vscode/
+*.db
+*.save
+build/
+install/
+log/
+__pycache__/
+*.pyc
+# ==============================================================================
+# YOLOv8 Weights and Datasets
+# ==============================================================================
+# Ignore all training checkpoints and datasets globally
+*.pt
+*.onnx
+datasets/
+VisDrone/
+HERIDAL/
+runs/
+
+# EXCEPTIONS: Explicitly allow the final Nano models for the team to pull
+!human_detection/models/best.pt
+!human_detection/models/best.onnx
