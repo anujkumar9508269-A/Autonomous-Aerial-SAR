@@ -1,0 +1,38 @@
+# ============================================================
+#  IIT Indore Campus — Coverage Mission Polygon
+#  coverage_planner/config/iiti_campus.yaml
+# ============================================================
+#
+#  Campus: IIT Indore, Simrol, Khandwa Road, Indore — 453552
+#  Area  : ~501 acres (2.03 km²)
+#  Source: Approximated from OSM satellite imagery
+#
+#  The origin is placed at the SW corner of the campus
+#  (Main Gate area) so local ENU coords are all positive.
+#
+#  Usage in launch / CLI:
+#    ros2 run coverage_planner coverage_planner_node \
+#      --ros-args \
+#      -p polygon_file:=$(ros2 pkg prefix coverage_planner)/share/coverage_planner/config/iiti_campus.yaml \
+#      -p altitude:=30.0 \
+#      -p strategy:=nonconvex
+# ============================================================
+
+# GPS origin — SW corner (Main Gate area)
+origin_lat: 22.5148
+origin_lon: 75.9125
+
+# Full campus boundary in GPS lat/lon (counter-clockwise)
+# Traces the approximate parcel boundary visible on OSM/Google Maps.
+# ~10-vertex simplified polygon; refine if sub-10 m fidelity needed.
+gps_polygon:
+  - [22.5148, 75.9138]   # 0  SW corner
+  - [22.5148, 75.9295]   # 1  SE corner
+  - [22.5178, 75.9310]   # 2  East mid
+  - [22.5248, 75.9295]   # 3  NE corner
+  - [22.5265, 75.9258]   # 4  North-east notch
+  - [22.5268, 75.9210]   # 5  North mid
+  - [22.5258, 75.9165]   # 6  North-west area
+  - [22.5235, 75.9138]   # 7  NW corner
+  - [22.5200, 75.9125]   # 8  West mid (near river)
+  - [22.5148, 75.9138]   # 9  close — back to SW

@@ -1,0 +1,205 @@
+<?xml version="1.0" ?>
+<!--
+  iiti_sar.world — Gazebo Classic 11 world for IIT Indore SAR simulation
+  =======================================================================
+  Flat outdoor world scaled to the IIT Indore SAR test zone (~400×350 m).
+  - Ground plane with a grass-like texture (checkerboard for scale reference)
+  - Directional sun matching Indore latitude (approx noon lighting)
+  - 5 actor "human" models placed at known local-frame positions so
+    detection recall can be measured during evaluation.
+  - Atmosphere / fog disabled for clear YOLO detection.
+
+  Human positions (local ENU from origin 22.5178°N, 75.9155°E):
+    H1 : (80,  60)   — near academic block entrance
+    H2 : (180, 120)  — open ground centre
+    H3 : (280, 200)  — north-east area
+    H4 : (120, 280)  — north-west area
+    H5 : (220, 50)   — south-east corner
+
+  GPS equivalents (approx):
+    H1 : 22.5185°N, 75.9162°E
+    H2 : 22.5189°N, 75.9171°E
+    H3 : 22.5196°N, 75.9180°E
+    H4 : 22.5203°N, 75.9165°E
+    H5 : 22.5182°N, 75.9175°E
+
+  Usage:
+    Loaded automatically by the ROS 2 launch file.
+    Can also be opened directly:
+      gazebo --verbose worlds/iiti_sar.world
+-->
+<sdf version="1.6">
+  <world name="iiti_sar">
+
+    <!-- ── Physics ── -->
+    <physics type="ode">
+      <real_time_update_rate>1000</real_time_update_rate>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+    </physics>
+
+    <!-- ── Lighting (Indore noon, June) ── -->
+    <light name="sun" type="directional">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 500 0 0 0</pose>
+      <!-- Indore latitude ~22.5° N; solar altitude ~88° at noon June -->
+      <direction>0.1 0.1 -1</direction>
+      <diffuse>0.9 0.9 0.85 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+    </light>
+
+    <!-- ── Ground plane (400 m × 400 m, origin at SW corner) ── -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>600 600</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction><ode><mu>100</mu><mu2>50</mu2></ode></friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>600 600</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grass</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ══════════════════════════════════════════════════════
+         Human models — static person-shaped boxes
+         (Replace with actor SDF if animated walking is needed)
+         Size: 0.5 m × 0.4 m × 1.75 m  (width × depth × height)
+         ══════════════════════════════════════════════════════ -->
+
+    <!-- H1 : (80, 60) near academic block -->
+    <model name="human_1">
+      <static>true</static>
+      <pose>80 60 0.875 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.5 0.4 1.75</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.5 0.4 1.75</size></box></geometry>
+          <material>
+            <ambient>0.8 0.3 0.3 1</ambient>
+            <diffuse>0.8 0.3 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- H2 : (180, 120) open ground centre -->
+    <model name="human_2">
+      <static>true</static>
+      <pose>180 120 0.875 0 0 0.5</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.5 0.4 1.75</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.5 0.4 1.75</size></box></geometry>
+          <material>
+            <ambient>0.3 0.6 0.8 1</ambient>
+            <diffuse>0.3 0.6 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- H3 : (280, 200) north-east area -->
+    <model name="human_3">
+      <static>true</static>
+      <pose>280 200 0.875 0 0 1.2</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.5 0.4 1.75</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.5 0.4 1.75</size></box></geometry>
+          <material>
+            <ambient>0.3 0.8 0.4 1</ambient>
+            <diffuse>0.3 0.8 0.4 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- H4 : (120, 280) north-west area -->
+    <model name="human_4">
+      <static>true</static>
+      <pose>120 280 0.875 0 0 2.0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.5 0.4 1.75</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.5 0.4 1.75</size></box></geometry>
+          <material>
+            <ambient>0.9 0.7 0.2 1</ambient>
+            <diffuse>0.9 0.7 0.2 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- H5 : (220, 50) south-east corner -->
+    <model name="human_5">
+      <static>true</static>
+      <pose>220 50 0.875 0 0 0.3</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.5 0.4 1.75</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.5 0.4 1.75</size></box></geometry>
+          <material>
+            <ambient>0.7 0.2 0.8 1</ambient>
+            <diffuse>0.7 0.2 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ── Sparse building obstacles (academic block approximation) ── -->
+    <model name="building_academic">
+      <static>true</static>
+      <pose>200 180 5 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>60 40 10</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>60 40 10</size></box></geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ── Gazebo plugins ── -->
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+      <ros><namespace>/gazebo</namespace></ros>
+      <update_rate>10.0</update_rate>
+    </plugin>
+
+  </world>
+</sdf>

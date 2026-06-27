@@ -1,0 +1,26 @@
+# ============================================================
+#  IIT Indore — SAR Test Zone (Academic Block area)
+#  coverage_planner/config/iiti_sar_zone.yaml
+# ============================================================
+#
+#  A ~400 m × 350 m sub-zone centred on the academic block /
+#  open ground.  Use this for SITL testing — the drone
+#  completes the mission in ~3–5 min at 30 m altitude vs
+#  ~25 min for the full campus.
+#
+#  When SITL works reliably here, switch to iiti_campus.yaml.
+# ============================================================
+
+origin_lat: 22.5178
+origin_lon: 75.9155
+
+gps_polygon:
+  - [22.5178, 75.9175]   # SW
+  - [22.5178, 75.9255]   # SE
+  - [22.5195, 75.9258]   # East low
+  - [22.5228, 75.9255]   # NE
+  - [22.5242, 75.9230]   # North-east
+  - [22.5242, 75.9175]   # NW
+  - [22.5225, 75.9155]   # West high
+  - [22.5195, 75.9155]   # West low
+  - [22.5178, 75.9175]   # close

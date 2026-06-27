@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>coverage_planner</name>
+  <version>3.1.0</version>
+  <description>
+    Autonomous UAV coverage path planner for SAR missions.
+    Implements boustrophedon (lawnmower), non-convex decomposition,
+    and inward-spiral coverage with strip-aware 2-opt optimisation.
+    Includes a MAVROS-based waypoint follower with CTE correction.
+    Tested on ROS 2 Humble + Gazebo Classic 11 + ArduPilot SITL.
+  </description>
+
+  <maintainer email="your@email.com">your_name</maintainer>
+  <license>MIT</license>
+
+  <!-- ── Build dependencies ─────────────────────────────────────────── -->
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <!-- ── Runtime dependencies (ROS) ────────────────────────────────── -->
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>mavros_msgs</depend>
+  <depend>rcl_interfaces</depend>
+
+  <!-- ── Launch deps ────────────────────────────────────────────────── -->
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <!-- ── Python library deps (declared here for rosdep) ────────────── -->
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+  <!-- shapely and triangle are pip-only; install via:
+       pip3 install shapely>=2.0 triangle -->
+
+  <!-- ── Test dependencies ──────────────────────────────────────────── -->
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep8</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
