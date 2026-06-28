@@ -2,7 +2,7 @@ from setuptools import setup
 import os
 from glob import glob
 
-package_name = 'coverage_planner'
+package_name = 'coverage_planning'
 
 setup(
     name=package_name,
