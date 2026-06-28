@@ -442,10 +442,22 @@ class WaypointFollower(Node):
                     f'(expected {target_alt:.1f}m) — proceeding anyway'
                 )
                 self._transition(S.FOLLOW)
-            else:
+            '''else:
+                # Publish a purely vertical climb setpoint to keep the stream alive
+                # without commanding lateral movement that cancels CommandTOL
+                if self.drone_pose:
+                    self._publish_setpoint_xyz(
+                        self.drone_pose.x, 
+                        self.drone_pose.y, 
+                        target_alt
+                    )'''
+                  
+     #---------------------------------------------------------------------------
+                    
+            #else:
                 # Publish climb setpoint
-                if self.waypoints:
-                    self._publish_setpoint(self.waypoints[0].pose.position)
+             #   if self.waypoints:
+              #      self._publish_setpoint(self.waypoints[0].pose.position)
 
         elif self.state_machine == S.FOLLOW:
             if not self.waypoints or self.drone_pose is None:
