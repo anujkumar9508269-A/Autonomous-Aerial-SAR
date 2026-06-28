@@ -23,7 +23,7 @@ from rclpy.node import Node
 from nav_msgs.msg import Path
 from geometry_msgs.msg import PoseStamped
 
-from coverage_planner.planner import (
+from coverage_planning.planner import (
     CoveragePlanner,
     gps_to_local,
     compute_coverage_pct,
