@@ -56,8 +56,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'coverage_planner_node = coverage_planner.coverage_planner_node:main',
-            'waypoint_follower     = coverage_planner.waypoint_follower:main',
+            'coverage_planner_node = coverage_planning.coverage_planner_node:main',
+            'waypoint_follower     = coverage_planning.waypoint_follower:main',
         ],
     },
 )
