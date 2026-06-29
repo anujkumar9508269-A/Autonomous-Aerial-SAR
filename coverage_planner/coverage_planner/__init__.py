@@ -1,6 +1,6 @@
 """coverage_planner package — drone search-area coverage planning (v3.0)."""
 
-from coverage_planning.planner import (
+from coverage_planner.planner import (
     CoveragePlanner,
     gps_to_local,
     local_to_gps,
