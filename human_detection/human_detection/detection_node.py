@@ -11,7 +11,7 @@ class HumanDetectionNode(Node):
         super().__init__('human_detection_node')
         
         # Load the optimized ONNX model for high-speed tracking
-        self.model = YOLO('/home/anujjj_k/drone_ws/src/human_detection/human_detection/best.onnx', task='detect')
+        self.model = YOLO('/home/anujjj_k/drone_ws/src/Autonomous-Aerial-SAR/human_detection/models/best.onnx', task='detect')
         self.bridge = CvBridge()
         
         # Subscribe to Gazebo's raw camera feed
