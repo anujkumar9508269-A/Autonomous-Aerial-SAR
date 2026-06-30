@@ -3,6 +3,7 @@ from rclpy.node import Node
 import numpy as np
 import math
 
+from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
 from geometry_msgs.msg import PoseStamped,PointStamped
 from sensor_msgs.msg import CameraInfo
 from vision_msgs.msg import Detection2DArray
@@ -11,13 +12,17 @@ class Geotagger(Node):
     def __init__(self):
         super().__init__('geotagger')
         
+        mavros_qos = QoSProfile(
+            reliability=ReliabilityPolicy.BEST_EFFORT,
+            history=HistoryPolicy.KEEP_LAST,
+            depth=10,
+        )
         self.pose_sub = self.create_subscription(
             PoseStamped,
             '/mavros/local_position/pose',
             self.pose_callback,
-            10
+            mavros_qos
         )
-        
         self.yolo_sub=self.create_subscription(
             Detection2DArray,
             '/detections',
@@ -26,7 +31,7 @@ class Geotagger(Node):
         )
         self.info_sub=self.create_subscription(
         CameraInfo,
-        '/drone/camera/camera_info',
+        '/camera/camera_info',
         self.camera_info_callback,
         10
         )
@@ -96,7 +101,7 @@ class Geotagger(Node):
             v=detection.bbox.center.position.y
             track_id=detection.id
             ground_point=self.geotagging(u,v)
-            
+            self.get_logger().info(f'DEBUG drone_pos={self.drone_gps_position} pixel=({u:.0f},{v:.0f})')
             if ground_point is None:
                 continue
             
