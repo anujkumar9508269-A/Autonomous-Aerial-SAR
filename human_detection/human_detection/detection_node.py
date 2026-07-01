@@ -37,7 +37,7 @@ class HumanDetectionNode(Node):
         results = self.model.track(
             cv_image, 
             persist=True, 
-            conf=0.35, 
+            conf=0.60, 
             iou=0.5, 
             classes=[0], 
             verbose=False
